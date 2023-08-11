@@ -16,12 +16,39 @@ const MovieScreen = () => {
   const {params: item} = useRoute();
   const navigation = useNavigation();
   const [movie, setMovie] = useState({});
-  const [cast, setCast] = useState([1,2,3,4,5])
-  const [similarMovies, setSimilarMovies] = useState([1,2,3,4,5])
+  const [cast, setCast] = useState([])
+  const [similarMovies, setSimilarMovies] = useState([])
   const [isFavourite, toggleFavourite] = useState(false);
   const [loading, setLoading] = useState(false);
 
   let moviename="Ant-Man"
+  useEffect(()=>{
+    setLoading(true);
+    getMovieDetials(item.id);
+    getMovieCredits(item.id);
+    getSimilarMovies(item.id);
+  },[item]);
+
+  const getMovieDetials = async id=>{
+    const data = await fetchMovieDetails(id);
+    setLoading(false);
+    if(data) {
+        setMovie({...movie, ...data});
+    }
+  }
+  const getMovieCredits = async id=>{
+    const data = await fetchMovieCredits(id);
+    if(data && data.cast){
+        setCast(data.cast);
+    }
+  }
+  const getSimilarMovies = async id=>{
+    const data = await fetchSimilarMovies(id);
+    if(data && data.results){
+        setSimilarMovies(data.results);
+    }
+}
+
   return (
     <ScrollView 
     contentContainerStyle={{paddingBottom: 20}} 
@@ -57,28 +84,41 @@ const MovieScreen = () => {
         </View>
         <View style={{marginTop: -(height*0.09)}} className="space-y-3">
           <Text className="text-white text-center text-3xl font-bold tracking-widest">
-              {moviename}
+            {
+                movie?.title
+            }
           </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-              Released • 2020 • 170 min
-          </Text>
+          {
+            movie?.id? (
+                <Text className="text-neutral-400 font-semibold text-base text-center">
+                    {movie?.status} • {movie?.release_date?.split('-')[0] || 'N/A'} • {movie?.runtime} min
+                </Text>
+            ):null
+        }
         <View className="flex-row justify-center mx-4 space-x-2">
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-              Action •
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-              Trill •
-          </Text>
-          <Text className="text-neutral-400 font-semibold text-base text-center">
-              Comedy
-          </Text>
+            {
+                movie?.genres?.map((genre,index)=>{
+                    let showDot = index+1 != movie.genres.length;
+                    return (
+                        <Text key={index} className="text-neutral-400 font-semibold text-base text-center">
+                            {genre?.name} {showDot? "•":null}
+                        </Text>
+                    )
+                })
+            }
         </View>
         <Text className="text-neutral-400 mx-4 tracking-wide">
-        Hank Pym (Michael Douglas) recruits the talents of Scott Lang (Paul Rudd), a master thief just released from prison. Lang becomes Ant-Man, trained by Pym and armed with a suit that allows him to shrink in size, possess superhuman strength and control an army of ants.
+            {
+                movie?.overview
+            }
         </Text>
         </View>
-        <Cast cast={cast} navigation={navigation} />
-        <MovieList title={'Similar Movies'} hideSeeAll={true} data={similarMovies} />
+        {
+            movie?.id && cast.length>0 && <Cast navigation={navigation} cast={cast} />
+        }
+        {
+            movie?.id && similarMovies.length>0 && <MovieList title={'Similar Movies'} hideSeeAll={true} data={similarMovies} />
+        }
     </ScrollView>
   )
 }

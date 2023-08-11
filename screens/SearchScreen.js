@@ -79,7 +79,6 @@ export default function SearchScreen() {
                                         <View className="space-y-2 mb-4">
                                             <Image 
                                                 source={{uri: image185(item.poster_path) || fallbackMoviePoster}} 
-                                                // source={require('../assets/images/moviePoster2.png')}
                                                 className="rounded-3xl" 
                                                 style={{ width: width*0.44, height: height*0.3}} 
                                             />

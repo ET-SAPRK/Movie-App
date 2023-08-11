@@ -11,10 +11,10 @@ import Loading from '../components/loading';
 import { styles } from '../theme';
 
 const HomeScreen = () => {
-  const [trending, setTrending] = useState([1,2,3]);
-  const [upcoming, setUpcoming] = useState([1,2,3]);
-  const [topRated, setTopRated] = useState([1,2,3]);
-  const [loading, setLoading] = useState(false);
+  const [trending, setTrending] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [topRated, setTopRated] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
   useEffect(()=>{
     getTrendingMovies();

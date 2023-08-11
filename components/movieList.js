@@ -40,9 +40,7 @@ const movieList = ({title,data,hideSeeAll}) => {
                               style={{ width: width*0.33, height: height*0.22}} 
                             />
                             <Text className="text-neutral-300 ml-1">
-                                {
-                                    item.title.length>14? item.title.slice(0,14)+'...': item.title
-                                }
+                                {item.title.length>14? item.title.slice(0,14)+'...': item.title}
                             </Text>
                         </View>
                     </TouchableWithoutFeedback>
