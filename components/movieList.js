@@ -6,16 +6,20 @@ import { fallbackMoviePoster, image185, image342, poster342 } from '../api/movie
 import { styles } from '../theme';
 const {width, height} =  Dimensions.get('window');
 
-const movieList = ({title,data}) => {
+const movieList = ({title,data,hideSeeAll}) => {
   const navigation = useNavigation();
   let movieName = 'Ant-Man'
   return (
     <View className="mb-8 space-y-4">
       <View className="mx-4 flex-row justify-between items-center">
       <Text className="text-white text-lg">{title}</Text>
-      <TouchableOpacity>
-        <Text style={styles.text} className="text-lg">See All</Text>
-      </TouchableOpacity>
+      {
+          !hideSeeAll && (
+            <TouchableOpacity>
+              <Text style={styles.text} className="text-lg">See All</Text>
+            </TouchableOpacity>
+          )
+        }
       </View>
       <ScrollView 
         horizontal 

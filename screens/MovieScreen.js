@@ -17,7 +17,7 @@ const MovieScreen = () => {
   const navigation = useNavigation();
   const [movie, setMovie] = useState({});
   const [cast, setCast] = useState([1,2,3,4,5])
-  const [similarMovies, setSimilarMovies] = useState([])
+  const [similarMovies, setSimilarMovies] = useState([1,2,3,4,5])
   const [isFavourite, toggleFavourite] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -72,7 +72,8 @@ const MovieScreen = () => {
         Hank Pym (Michael Douglas) recruits the talents of Scott Lang (Paul Rudd), a master thief just released from prison. Lang becomes Ant-Man, trained by Pym and armed with a suit that allows him to shrink in size, possess superhuman strength and control an army of ants.
         </Text>
         </View>
-        <Cast cast={cast} />
+        <Cast cast={cast} navigation={navigation} />
+        <MovieList title={'Similar Movies'} hideSeeAll={true} data={similarMovies} />
     </ScrollView>
   )
 }
