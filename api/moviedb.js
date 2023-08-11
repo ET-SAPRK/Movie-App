@@ -1,7 +1,6 @@
 import axios from "axios";
 import { apiKey } from "../constants";
 
-
 // endpoints
 const apiBaseUrl = 'https://api.themoviedb.org/3';
 const trendingMoviesEndpoint = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
