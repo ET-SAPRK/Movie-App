@@ -34,14 +34,15 @@ const movieList = ({title,data,hideSeeAll}) => {
                       onPress={()=> navigation.push('Movie', item)}
                     >
                         <View className="space-y-1 mr-4">
-                            <Image 
-                              source={require('../assets/images/moviePoster2.png')}
-                              // source={{uri: image185(item.poster_path) || fallbackMoviePoster}} 
+                            <Image
+                              source={{uri: image185(item.poster_path) || fallbackMoviePoster}} 
                               className="rounded-3xl" 
                               style={{ width: width*0.33, height: height*0.22}} 
                             />
                             <Text className="text-neutral-300 ml-1">
-                                {movieName.length>14? item.title.slice(0,14)+'...': movieName}
+                                {
+                                    item.title.length>14? item.title.slice(0,14)+'...': item.title
+                                }
                             </Text>
                         </View>
                     </TouchableWithoutFeedback>

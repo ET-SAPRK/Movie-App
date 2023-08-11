@@ -29,7 +29,11 @@ const PersonScreen = () => {
                 <HeartIcon size="35" color={isFavourite? theme.background: 'white'} />
             </TouchableOpacity>
          </SafeAreaView>
-         <View>
+         {
+          loading?(
+            <Loading />
+          ) : (
+            <View>
             <View 
               className="flex-row justify-center"
               style={{
@@ -76,7 +80,16 @@ const PersonScreen = () => {
               <Text className="text-neutral-300 text-sm">84.23 %</Text>
             </View>
             </View>
+            <View className="my-6 mx-4 space-y-2">
+            <Text className="text-white text-lg">Biography</Text>
+            <Text className="text-neutral-400 tracking-wide">
+            Keanu Charles Reeves is a Canadian actor and musician. Born in Beirut and raised in Toronto, Reeves began acting in theatre productions and in television films before making his feature film debut in Youngblood.
+            </Text>
+            </View>
+            <MovieList title="Movies" hideSeeAll={true} data={personMovies} />
          </View>
+          )
+         } 
         </ScrollView>
   )
 }
